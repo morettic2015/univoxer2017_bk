@@ -1,0 +1,10 @@
+[26-May-2014 15:38:18 America/Sao_Paulo] PHP Notice:  Trying to get property of non-object in /home/seenergi/public_html/babel_json_services/paypall/index.php on line 131
+[26-May-2014 15:38:18 America/Sao_Paulo] PHP Notice:  Trying to get property of non-object in /home/seenergi/public_html/babel_json_services/paypall/index.php on line 135
+[26-May-2014 15:38:18 America/Sao_Paulo] PHP Notice:  Trying to get property of non-object in /home/seenergi/public_html/babel_json_services/paypall/index.php on line 140
+[26-May-2014 15:38:18 America/Sao_Paulo] PHP Warning:  mysql_close() expects parameter 1 to be resource, object given in /home/seenergi/public_html/babel_json_services/paypall/index.php on line 174
+[26-May-2014 15:38:44 America/Sao_Paulo] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/seenergi/public_html/babel_json_services/paypall/paypal_process.php on line 15
+[26-May-2014 15:38:44 America/Sao_Paulo] PHP Warning:  mysql_close() expects parameter 1 to be resource, object given in /home/seenergi/public_html/babel_json_services/paypall/paypal.php on line 136
+[26-May-2014 15:38:56 America/Sao_Paulo] PHP Notice:  Trying to get property of non-object in /home/seenergi/public_html/babel_json_services/paypall/index.php on line 131
+[26-May-2014 15:38:56 America/Sao_Paulo] PHP Notice:  Trying to get property of non-object in /home/seenergi/public_html/babel_json_services/paypall/index.php on line 135
+[26-May-2014 15:38:56 America/Sao_Paulo] PHP Notice:  Trying to get property of non-object in /home/seenergi/public_html/babel_json_services/paypall/index.php on line 140
+[26-May-2014 15:38:56 America/Sao_Paulo] PHP Warning:  mysql_close() expects parameter 1 to be resource, object given in /home/seenergi/public_html/babel_json_services/paypall/index.php on line 174

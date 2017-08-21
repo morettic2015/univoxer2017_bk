@@ -1,0 +1,119 @@
+package com.univoxer.android.settings;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.VolleyError;
+import com.univoxer.android.R;
+import com.univoxer.android.utils.SharedPrefsUtil;
+import com.univoxer.android.utils.UnivoxerLog;
+import com.univoxer.android.commons.BaseFragment;
+import com.univoxer.android.network.NetworkManager;
+import com.univoxer.android.network.NetworkRequestCallback;
+import com.univoxer.android.network.RequestManager;
+import com.univoxer.android.user.User;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Created by Gustavo on 19/07/2016.
+ * SettingsFragment
+ */
+public class SettingsFragment extends BaseFragment {
+
+    private static final String TAG = SettingsFragment.class.getSimpleName();
+    private static final String URL_BUY_CREDITS = "http://www.univoxer.com/server_vox/paypall/?id=";
+    private static final String URL_PANEL = "http://www.univoxer.com/server_vox/painel/";
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.settings_fragment, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        TextView titleTranslatorText = (TextView) view.findViewById(R.id.status_translator_title);
+        Switch switchTranslator = (Switch) view.findViewById(R.id.switch_status_translator);
+
+        switchTranslator.setChecked(SharedPrefsUtil.getTranslatorStatus(mContext));
+
+        if(User.getInstance().getUserData(RequestManager.ROLE) == null) {
+            titleTranslatorText.setVisibility(View.GONE);
+            switchTranslator.setVisibility(View.GONE);
+        } else {
+            if (User.getInstance().isUser()) {
+                titleTranslatorText.setVisibility(View.GONE);
+                switchTranslator.setVisibility(View.GONE);
+            } else {
+                switchTranslator.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        SharedPrefsUtil.setTranslatorStatus(mContext, b);
+                        if (!b) {
+                            setStatusOnServerOffline();
+                        }
+                    }
+                });
+            }
+        }
+
+        Button buttonCredits = (Button) view.findViewById(R.id.btn_buy_credits);
+        buttonCredits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = URL_BUY_CREDITS + User.getInstance().getUserData(RequestManager.ID_USER);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+
+        Button buttonPanel = (Button) view.findViewById(R.id.btn_open_panel);
+        buttonPanel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = URL_PANEL;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+
+    }
+
+    private void setStatusOnServerOffline() {
+        Map<String, String> params = new HashMap<>();
+        params.put(RequestManager.ACTION, RequestManager.ACTIONS.STATUS.name());
+        params.put(RequestManager.ID_USER, User.getInstance().getUserData(RequestManager.ID_USER));
+        params.put(RequestManager.ONLINE, RequestManager.STATUS.EXIT.name());
+
+        NetworkManager.getInstance().doPostWithParams(RequestManager.URL, params, "setOffline",
+                new NetworkRequestCallback<JSONObject>() {
+                    @Override
+                    public void onRequestResponse(JSONObject response) {
+                        HashMap<String, String> params = RequestManager.jsonToMap(response);
+                        String message = params.get(RequestManager.MESSAGE);
+
+                        UnivoxerLog.d(TAG, "setOffline " + message);
+                    }
+
+                    @Override
+                    public void onRequestError(VolleyError error) {
+                        Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+}

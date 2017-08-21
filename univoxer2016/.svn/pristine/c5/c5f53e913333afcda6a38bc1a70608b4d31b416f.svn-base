@@ -1,0 +1,9 @@
+package com.univoxer.android.user;
+
+import com.univoxer.android.commons.BaseActivity;
+
+/**
+ * Created by Gustavo on 27/07/2016.
+ */
+public class UserActivity extends BaseActivity {
+}

@@ -1,0 +1,139 @@
+package com.univoxer.android.network;
+
+import com.google.firebase.crash.FirebaseCrash;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.univoxer.android.Utils.UnivoxerLog;
+
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Created by Gustavo on 26/05/2016.
+ */
+public class RequestManager {
+
+    private static String TAG = RequestManager.class.getSimpleName();
+
+    public enum ACTIONS {
+        SAVE_PROFILE,
+        CALL_PROFILE,
+        FINISH_PROFILE,
+        EVALUATION,
+        STATUS,
+        VERIFY_EMAIL,
+        PROFICIENCY,
+        LIST_LANGUAGES,
+        INFOCALL_TRANSLATOR,
+        MY_CREDITS,
+        CALL_STATUS
+    }
+
+    public enum OPT_ENUM {
+        ADD,
+        DEL
+    }
+
+    public enum STATUS {
+        ON,
+        OFF,
+        EXIT
+    }
+
+    public enum MESSAGES {
+        PASSWORD_DONT_MATCH,
+        AUTHENTICATED,
+        EMAIL_DOES_NOT_EXIST,
+        CONNECTED,
+        CREATED,
+        UPDATED,
+        EMAIL_ALREADY_REGISTERED,
+        TRANSLATOR_UNAVALIABLE,
+        PROFICIENCY_REMOVED,
+        PROFICIENCY_ADDED,
+        PROFICIENCY_REMOVE_ERROR,
+        PROFICIENCY_ADDED_ERROR,
+        INFO_FOUND,
+        INFO_NOT_FOUND
+    }
+
+    public static final String STATUS_PENDING = "1";
+    public static final String STATUS_NOT_ANSWERED = "2";
+    public static final String STATUS_CANCELLED = "3";
+    public static final String STATUS_ANSWERED = "4";
+
+    public static String URL = "http://www.univoxer.com/server_vox/";
+    public static String ACTION = "action";
+    public static String OPT = "opt";
+    public static String MESSAGE = "message";
+
+    public static String CALL_TOKEN = "call_token";
+    public static String TOKEN = "token";
+    public static String STATUS_CALL = "status";
+
+    public static String ID = "id";
+    public static String ID_USER = "id_user";
+    public static String ID_LANG = "id_lang";
+    public static String LOGIN = "login";
+    public static String PASSWORD = "passwd";
+    public static String PROFICIENCY = "proficiency";
+    public static String EMAIL = "email";
+    public static String NAME = "name";
+    public static String BIRTHDAY = "birthday";
+    public static String NATURE = "nature";
+    public static String ID_ROLE = "id_role";
+    public static String ROLE = "role";
+    public static String STORE_ID = "paypall_acc";
+    public static String ONLINE = "online";
+    public static String SERVER_NAME = "servername";
+    public static String SERVER_NAME_LOGIN = "serverName";
+    public static String SIP_USER = "user";
+    public static String SIP_PASS = "pass";
+    public static String CREDITS = "credits";
+
+    public static String SIP_USER_TRANSLATE = "sip_user_t";
+    public static String TRANSLATOR_NAME = "translator_name";
+    public static String ID_SIP = "id_sip";
+
+    public static String buildUrlWithParams(String url, Map<String, String> params) {
+        StringBuilder stringBuilder = new StringBuilder(url);
+        int i = 1;
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            String key;
+            String value;
+
+            key = entry.getKey();
+            try {
+                value = URLEncoder.encode(entry.getValue());
+            } catch (NullPointerException e) {
+                FirebaseCrash.report(new Throwable("NullPointer:: " + key));
+                value = "";
+            }
+            if (i == 1) {
+                stringBuilder.append("?");
+                stringBuilder.append(key);
+                stringBuilder.append("=");
+                stringBuilder.append(value);
+            } else {
+                stringBuilder.append("&");
+                stringBuilder.append(key);
+                stringBuilder.append("=");
+                stringBuilder.append(value);
+            }
+
+            i++;
+        }
+
+        UnivoxerLog.d(TAG, stringBuilder.toString());
+
+        return stringBuilder.toString();
+    }
+
+    public static HashMap jsonToMap(JSONObject json) {
+        return new Gson().fromJson(json.toString(), HashMap.class);
+    }
+}

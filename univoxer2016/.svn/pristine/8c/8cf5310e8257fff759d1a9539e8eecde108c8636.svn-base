@@ -1,0 +1,15 @@
+package com.univoxer.android.Utils;
+
+/**
+ * Created by Gustavo on 22/06/2016.
+ * GeneralConstants
+ */
+public class GeneralConstants {
+
+    /** SIP CONSTANTS */
+    public static final String SIP_HOST = "54.233.69.236";
+    public static final String SIP_REALM = "asterisk";
+
+
+
+}

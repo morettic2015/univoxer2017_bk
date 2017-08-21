@@ -1,0 +1,86 @@
+package com.univoxer.android.login.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.univoxer.android.MainActivity;
+import com.univoxer.android.R;
+import com.univoxer.android.Utils.SharedPrefsUtil;
+import com.univoxer.android.commons.BaseActivity;
+import com.univoxer.android.login.fragments.LoginFragment;
+import com.univoxer.android.user.User;
+import com.univoxer.android.network.NetworkManager;
+import com.univoxer.android.network.NetworkRequestCallback;
+import com.univoxer.android.network.RequestManager;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Created by Gustavo on 26/05/2016.
+ * LoginActivity
+ */
+
+public class LoginActivity extends BaseActivity {
+
+    private static String TAG = LoginActivity.class.getSimpleName();
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        addFragment(new LoginFragment(), R.id.fragment_layout, false);
+    }
+
+    public void createUser(final boolean startHome) {
+        Map<String, String> params = new HashMap<>();
+        params.put(RequestManager.ACTION, RequestManager.ACTIONS.SAVE_PROFILE.name());
+        params.put(RequestManager.ID_USER, "");
+        params.put(RequestManager.EMAIL, User.getInstance().getUserData(RequestManager.EMAIL));
+        params.put(RequestManager.NAME, User.getInstance().getUserData(RequestManager.NAME));
+        params.put(RequestManager.NATURE, User.getInstance().getUserData(RequestManager.NATURE));
+        params.put(RequestManager.PROFICIENCY, User.getInstance().getUserData(RequestManager.PROFICIENCY));
+        params.put(RequestManager.ID_ROLE, User.getInstance().getUserData(RequestManager.ROLE));
+        params.put(RequestManager.PASSWORD, User.getInstance().getUserData(RequestManager.PASSWORD));
+
+        NetworkManager.getInstance().doPostWithParams(RequestManager.URL, params, "online", new NetworkRequestCallback<JSONObject>() {
+            @Override
+            public void onRequestResponse(JSONObject response) {
+                HashMap<String, String> params = RequestManager.jsonToMap(response);
+                String message = params.get(RequestManager.MESSAGE);
+
+                if (message.equals(RequestManager.MESSAGES.CREATED.name())) {
+                    User.getInstance().setUserData(RequestManager.ID_USER, params.get(RequestManager.ID_USER));
+                    SharedPrefsUtil.setUserLogin(mContext, User.getInstance().getUserData(RequestManager.EMAIL));
+                    SharedPrefsUtil.setUserPassword(mContext, User.getInstance().getUserData(RequestManager.PASSWORD));
+                    if (startHome) {
+                        Intent intent = new Intent(mContext, MainActivity.class);
+                        mContext.startActivity(intent);
+                    }
+                } else if(message.equals(RequestManager.MESSAGES.EMAIL_ALREADY_REGISTERED.name())) {
+                    Toast.makeText(mContext, R.string.email_exist, Toast.LENGTH_LONG).show();
+                    addFragment(new LoginFragment(), R.id.fragment_layout, false);
+                }
+            }
+
+            @Override
+            public void onRequestError(Exception error) {
+                Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
+                addFragment(new LoginFragment(), R.id.fragment_layout, false);
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return true;
+    }
+}

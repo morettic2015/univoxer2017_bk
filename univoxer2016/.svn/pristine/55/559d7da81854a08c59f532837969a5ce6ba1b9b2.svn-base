@@ -1,0 +1,75 @@
+package com.univoxer.android.login.fragments;
+
+import android.os.Bundle;
+import android.util.Patterns;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.univoxer.android.R;
+import com.univoxer.android.commons.BaseFragment;
+import com.univoxer.android.user.User;
+import com.univoxer.android.network.RequestManager;
+
+/**
+ * Created by Gustavo on 01/06/2016.
+ * SignUpFirstPageFragment
+ */
+public class SignUpFirstPageFragment extends BaseFragment {
+
+    private ImageView mImageView;
+    private Button mButton;
+    private EditText mName;
+    private EditText mEmail;
+    private EditText mPassword;
+    private EditText mConfirmPassword;
+
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.signup_first_page_fragment, container, false);
+
+        mName = (EditText) view.findViewById(R.id.txt_name);
+        mEmail = (EditText) view.findViewById(R.id.txt_email);
+        mPassword = (EditText) view.findViewById(R.id.txt_password);
+        mConfirmPassword = (EditText) view.findViewById(R.id.txt_confirm_password);
+
+        mImageView = (ImageView) view.findViewById(R.id.img);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //change image
+            }
+        });
+
+        mButton = (Button) view.findViewById(R.id.btn_next);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(mEmail.getText().toString()).matches()) {
+                    Toast.makeText(getActivity(), getResources().getText(R.string.incorrect_email), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if(mName.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), getResources().getText(R.string.invalid_name), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (mPassword.getText().toString().equals(mConfirmPassword.getText().toString()) && !mPassword.getText().toString().isEmpty()) {
+                    User.getInstance().setUserData(RequestManager.NAME, mName.getText().toString());
+                    User.getInstance().setUserData(RequestManager.EMAIL, mEmail.getText().toString());
+                    User.getInstance().setUserData(RequestManager.PASSWORD, mPassword.getText().toString());
+
+                    switchFragment(new SignUpSecondPageFragment(), null, true);
+                } else {
+                    Toast.makeText(getActivity(), getResources().getText(R.string.password_not_equal), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        return view;
+    }
+}

@@ -1,0 +1,83 @@
+package com.univoxer.android.login.fragments;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.univoxer.android.R;
+import com.univoxer.android.commons.BaseFragment;
+import com.univoxer.android.login.adapter.LanguageAdapter;
+import com.univoxer.android.user.User;
+import com.univoxer.android.network.RequestManager;
+
+/**
+ * Created by Gustavo on 01/06/2016.
+ * SignUpSecondPageFragment
+ */
+public class SignUpSecondPageFragment extends BaseFragment {
+
+    private ListView mListView;
+    private Button mButton;
+    private LanguageAdapter mAdapter;
+
+    private ImageView mFlagImage;
+    private TextView mLanguageText;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.signup_second_page_fragment, container, false);
+
+        User.getInstance().setUserData(RequestManager.NATURE, "PT");
+        User.getInstance().setUserData(RequestManager.PROFICIENCY, "PT");
+
+        mFlagImage = (ImageView) view.findViewById(R.id.flag_selected);
+        mLanguageText = (TextView) view.findViewById(R.id.language_selected);
+
+        mAdapter = new LanguageAdapter(mContext, LanguageAdapter.NATURE, true);
+
+        mFlagImage.setImageResource(mAdapter.getItem(0).mIcon);
+        mLanguageText.setText(mAdapter.getItem(0).mTitle);
+
+        mListView = (ListView) view.findViewById(R.id.listview_language);
+        mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LanguageAdapter.FlagItem flagItem = mAdapter.getItem(position);
+                mFlagImage.setImageResource(flagItem.mIcon);
+                mLanguageText.setText(flagItem.mTitle);
+
+                User.getInstance().setUserData(RequestManager.NATURE, String.valueOf(flagItem.mToken));
+                User.getInstance().setUserData(RequestManager.PROFICIENCY, String.valueOf(flagItem.mToken));
+            }
+        });
+
+        mButton = (Button) view.findViewById(R.id.btn_next);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchFragment(new SignUpThirdPageFragment(), null, true);
+            }
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (User.getInstance().getUserData(RequestManager.NATURE) != null) {
+            mFlagImage.setImageResource(mAdapter.getItemByToken(User.getInstance().getUserData(RequestManager.NATURE)).mIcon);
+            mLanguageText.setText(mAdapter.getItemByToken(User.getInstance().getUserData(RequestManager.NATURE)).mTitle);
+        }
+    }
+}

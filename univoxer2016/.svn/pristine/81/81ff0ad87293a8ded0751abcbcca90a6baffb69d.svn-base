@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Univoxer</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Senha</string>
+    <string name="forgot_password">Esqueceu sua senha?</string>
+    <string name="btn_sign_in">Fazer Login</string>
+    <string name="btn_sign_up">Cadastrar</string>
+    <string name="btn_next">Próximo</string>
+    <string name="btn_finish">Criar</string>
+    <string name="sign_with_other">Ou logar com</string>
+    <string name="password_incorrect">Senha incorreta</string>
+    <string name="email_not_exist">Email não existe</string>
+    <string name="password_not_equal">Senha não confere</string>
+    <string name="incorrect_email">Email incorreto</string>
+    <string name="invalid_name">Nome inválido</string>
+    <string name="hint_name">Nome</string>
+    <string name="hint_confirm_password">Confirmar Senha</string>
+    <string name="splash_text">Aproximando Pessoas</string>
+    <string name="select_language">Selecione seu idioma</string>
+    <string name="buy_credit_text">Comprar crédito</string>
+    <string name="credits_text">Créditos: %1$s</string>
+    <string name="need_more_credit_text">Você precisa de créditos para solicitar suporte!</string>
+    <string name="choose_language_text">Escolha o idioma para suporte</string>
+    <string name="call_text">Ligar</string>
+    <string name="radio_user_text">Usuário: Você poderá solicitar suporte a qualquer idioma quando quiser.</string>
+    <string name="radio_translate_text">Tradutor: Você poderá solicitar suporte em idiomas ou prestar suporte a outros usuários caso fale mais de um idioma</string>
+    <string name="email_exist">Email já existe</string>
+    <string name="translator_unavailable">Tradutor indisponível</string>
+    <string name="text_home_selecting_flags">Toque nas bandeiras para selecionar os idiomas</string>
+    <string name="button_home_to_call">Chamar Tradutor</string>
+    <string name="cancel_dialog_button">Cancelar</string>
+    <string name="title_from_dialog">De:</string>
+    <string name="title_to_dialog">Para:</string>
+    <string name="status_translator_title">Disponibilidade para receber chamada:</string>
+    <string name="status_translator">STATUS:</string>
+    <string name="settings_title">Configurações</string>
+    <string name="status_translator_home">Status: %1$s</string>
+    <string name="online">Online</string>
+    <string name="offline">Offline</string>
+
+</resources>

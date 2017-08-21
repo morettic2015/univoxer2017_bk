@@ -1,0 +1,50 @@
+package com.univoxer.android.Utils;
+
+import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+
+import com.univoxer.android.R;
+
+/**
+ * Created by Gustavo on 21/07/2016.
+ * Util
+ */
+public class Util {
+
+    public static int getFlagResource(int id) {
+        switch (id) {
+            case 1:
+                return R.drawable.ic_flag_pt;
+            case 2:
+                return R.drawable.ic_flag_en;
+            case 3:
+                return R.drawable.ic_flag_es;
+            case 4:
+                return R.drawable.ic_flag_de;
+            case 5:
+                return R.drawable.ic_flag_fr;
+            case 6:
+                return R.drawable.ic_flag_cn;
+            case 7:
+                return R.drawable.ic_flag_it;
+            case 8:
+                return R.drawable.ic_flag_ru;
+            default:
+                return R.drawable.ic_flag_pt;
+        }
+    }
+
+    public static void showAlert(String message, Context context) {
+        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle("Univoxer");
+        alertDialog.setMessage(message);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+    }
+}

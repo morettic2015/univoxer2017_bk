@@ -1,0 +1,420 @@
+package com.univoxer.android.home.activity;
+
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.univoxer.android.MainActivity;
+import com.univoxer.android.R;
+import com.univoxer.android.Utils.GeneralConstants;
+import com.univoxer.android.Utils.SharedPrefsUtil;
+import com.univoxer.android.Utils.Util;
+import com.univoxer.android.commons.BaseActivity;
+import com.univoxer.android.home.NavItem;
+import com.univoxer.android.home.adapter.DrawerListAdapter;
+import com.univoxer.android.home.fragments.IncomingFragment;
+import com.univoxer.android.home.fragments.OutgoingFragment;
+import com.univoxer.android.home.fragments.HomeFragment;
+import com.univoxer.android.settings.SettingsActivity;
+import com.univoxer.android.user.User;
+import com.univoxer.android.network.NetworkManager;
+import com.univoxer.android.network.NetworkRequestCallback;
+import com.univoxer.android.network.RequestManager;
+import com.univoxer.android.user.UserActivity;
+
+import net.gotev.sipservice.BroadcastEventReceiver;
+import net.gotev.sipservice.SipAccountData;
+import net.gotev.sipservice.SipServiceCommand;
+
+import org.json.JSONObject;
+import org.pjsip.pjsua2.pjsip_inv_state;
+import org.pjsip.pjsua2.pjsip_status_code;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Created by Gustavo on 02/06/2016.
+ * HomeActivity
+ */
+public class HomeActivity extends BaseActivity {
+    private static final String TAG = HomeActivity.class.getSimpleName();
+
+    ListView mDrawerList;
+    RelativeLayout mDrawerPane;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private ArrayList<NavItem> mNavItems = new ArrayList<>();
+
+    private long mTimestampCall;
+    private String mCallToken = null;
+
+    private boolean mStackStarted = false;
+    private boolean mLogout = false;
+    private boolean mSipRegistered = false;
+
+    private String mSipAccountTranslate = null;
+
+    private SipAccountData mSipAccount = null;
+
+    private BroadcastEventReceiver sipEvents = new BroadcastEventReceiver() {
+
+        @Override
+        public void onRegistration(String accountID, pjsip_status_code registrationStateCode) {
+            super.onRegistration(accountID, registrationStateCode);
+
+            Log.d(TAG, "SIP_EVENT " + registrationStateCode.toString() + " : " + accountID);
+
+        }
+
+        @Override
+        public void onStackStatus(boolean started) {
+            super.onStackStatus(started);
+            mStackStarted = started;
+        }
+
+        @Override
+        public void onCallState(String accountID, int callID, pjsip_inv_state callStateCode, long connectTimestamp, boolean isLocalHold, boolean isLocalMute) {
+            super.onCallState(accountID, callID, callStateCode, connectTimestamp, isLocalHold, isLocalMute);
+
+            if (callStateCode == pjsip_inv_state.PJSIP_INV_STATE_CONFIRMED) {
+                mTimestampCall = connectTimestamp;
+            }
+
+            if (callStateCode == pjsip_inv_state.PJSIP_INV_STATE_DISCONNECTED) {
+                switchFragment(new HomeFragment(), R.id.fragment_layout, false);
+
+                if (mCallToken == null) {
+                    return;
+                }
+
+                Map<String, String> params = new HashMap<>();
+                params.put(RequestManager.ACTION, RequestManager.ACTIONS.FINISH_PROFILE.name());
+                params.put(RequestManager.TOKEN, mCallToken);
+
+                NetworkManager.getInstance().doPostWithParams(RequestManager.URL, params, "finish",
+                        new NetworkRequestCallback<JSONObject>() {
+                            @Override
+                            public void onRequestResponse(JSONObject response) {
+                                HashMap<String, String> params = RequestManager.jsonToMap(response);
+                                String message = params.get(RequestManager.MESSAGE);
+
+                                Log.d(TAG, "PJSIP_INV_STATE_DISCONNECTED: " + message);
+                            }
+
+                            @Override
+                            public void onRequestError(Exception error) {
+                                Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+
+            Log.d(TAG, "SIP_EVENT " + callStateCode.toString() + " : " + connectTimestamp);
+        }
+
+        @Override
+        public void onIncomingCall(String accountID, int callID, String displayName, String remoteUri) {
+            super.onIncomingCall(accountID, callID, displayName, remoteUri);
+
+            Bundle bundle = new Bundle();
+            bundle.putString(IncomingFragment.ACCOUNT_ID, accountID);
+            bundle.putInt(IncomingFragment.CALL_ID, callID);
+            bundle.putString(IncomingFragment.SIP_NUMBER, displayName);
+
+            Log.d(TAG, "INCOMING_CALL : " + accountID + " : " + callID + " : " + displayName + " : " + remoteUri);
+
+            goToCallFragment(new IncomingFragment(), bundle);
+        }
+
+        @Override
+        public void onOutgoingCall(String accountID, int callID, String number) {
+            super.onOutgoingCall(accountID, callID, number);
+
+            Log.d(TAG, "OUTGOING_CALL : " + accountID + " : " + callID + " : " + number);
+        }
+    };
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.home_activity);
+        setSideMenu();
+
+        if (!mStackStarted) {
+            sipEvents.register(this);
+        }
+
+        addFragment(new HomeFragment(), R.id.fragment_layout, false);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setStatusOnServerOnline();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SipServiceCommand.removeAccount(this, mSipAccount.getIdUri());
+        mSipRegistered = false;
+
+        if (mLogout)
+            return;
+
+        setStatusOnServerOffline();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: unRegisterSip");
+        sipEvents.unregister(this);
+    }
+
+    private void setStatusOnServerOffline() {
+        Map<String, String> params = new HashMap<>();
+        params.put(RequestManager.ACTION, RequestManager.ACTIONS.STATUS.name());
+        params.put(RequestManager.ID_USER, User.getInstance().getUserData(RequestManager.ID_USER));
+        params.put(RequestManager.ONLINE, RequestManager.STATUS.EXIT.name());
+
+        NetworkManager.getInstance().doPostWithParams(RequestManager.URL, params, "online",
+                new NetworkRequestCallback<JSONObject>() {
+                    @Override
+                    public void onRequestResponse(JSONObject response) {
+                        HashMap<String, String> params = RequestManager.jsonToMap(response);
+                        String message = params.get(RequestManager.MESSAGE);
+
+                        Log.d(TAG, "onPause: " + message);
+                    }
+
+                    @Override
+                    public void onRequestError(Exception error) {
+                        Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void setStatusOnServerOnline() {
+        Map<String, String> params = new HashMap<>();
+        params.put(RequestManager.ACTION, RequestManager.ACTIONS.STATUS.name());
+        params.put(RequestManager.ID_USER, User.getInstance().getUserData(RequestManager.ID_USER));
+        params.put(RequestManager.ONLINE, RequestManager.STATUS.ON.name());
+
+        NetworkManager.getInstance().doPostWithParams(RequestManager.URL, params, "online",
+                new NetworkRequestCallback<JSONObject>() {
+                    @Override
+                    public void onRequestResponse(JSONObject response) {
+                        HashMap<String, String> params = RequestManager.jsonToMap(response);
+                        String message = params.get(RequestManager.MESSAGE);
+                        String sipUser = params.get(RequestManager.SIP_USER);
+                        String sipPass = params.get(RequestManager.SIP_PASS);
+
+                        Log.d(TAG, "onResume: " + sipUser + " : " + sipPass);
+
+                        Toast.makeText(mContext, sipUser + " : " + sipPass, Toast.LENGTH_SHORT).show();
+
+                        if (!mSipRegistered)
+                            registerOnSip(sipUser, sipPass);
+
+                        Log.d(TAG, "onResume: " + message);
+                    }
+
+                    @Override
+                    public void onRequestError(Exception error) {
+                        Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void registerOnSip(String sipUser, String sipPass) {
+        Log.d(TAG, "registerOnSip: user: " + sipUser + " : " + "pass: " + sipPass);
+
+        mSipAccount = new SipAccountData();
+        mSipAccount.setHost(GeneralConstants.SIP_HOST)
+                .setRealm(GeneralConstants.SIP_REALM)
+                .setUsername(sipUser)
+                .setPassword(sipPass);
+
+        SipServiceCommand.setAccount(this, mSipAccount);
+        SipServiceCommand.getCodecPriorities(this);
+        mSipRegistered = true;
+
+        if (!SharedPrefsUtil.getTranslatorStatus(mContext)) {
+            setStatusOnServerOffline();
+        }
+    }
+
+    private void getTranslateProfile(final int userId, final int proficiencyId) {
+        Map<String, String> params = new HashMap<>();
+
+        params.put(RequestManager.NATURE, String.valueOf(userId));
+        params.put(RequestManager.PROFICIENCY, String.valueOf(proficiencyId));
+        params.put(RequestManager.ID_USER, User.getInstance().getUserData(RequestManager.ID_USER));
+        params.put(RequestManager.ACTION, RequestManager.ACTIONS.CALL_PROFILE.name());
+
+        NetworkManager.getInstance().doPostWithParams(RequestManager.URL, params, "call_translate",
+                new NetworkRequestCallback<JSONObject>() {
+                    @Override
+                    public void onRequestResponse(JSONObject response) {
+                        HashMap<String, String> params = RequestManager.jsonToMap(response);
+                        String message = params.get(RequestManager.MESSAGE);
+                        mSipAccountTranslate = params.get(RequestManager.SIP_USER_TRANSLATE);
+                        String translatorName = params.get(RequestManager.TRANSLATOR_NAME);
+
+                        if (message.equals(RequestManager.MESSAGES.TRANSLATOR_UNAVALIABLE.name()) || mSipAccountTranslate == null) {
+                            Util.showAlert(getResources().getString(R.string.translator_unavailable), mContext);
+                            return;
+                        }
+
+                        if (!mSipAccountTranslate.equals("null")) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString(OutgoingFragment.TRANSLATE_NAME, translatorName);
+                            bundle.putInt(OutgoingFragment.FLAG_NATURE, Integer.parseInt(User.getInstance().getUserData(RequestManager.NATURE)));
+                            bundle.putInt(OutgoingFragment.FLAG_PROFICIENCY, proficiencyId);
+                            SipServiceCommand.makeCall(mContext, mSipAccount.getIdUri(), mSipAccountTranslate);
+                            Log.d(TAG, "onCall: ID URI: " + mSipAccount.getIdUri() + " SIPAccount Translate: " + mSipAccountTranslate);
+                            Log.d(TAG, params.get(RequestManager.CALL_TOKEN));
+
+                            mCallToken = params.get(RequestManager.CALL_TOKEN); //wtf
+                            goToCallFragment(new OutgoingFragment(), bundle);
+                        }
+                    }
+
+                    @Override
+                    public void onRequestError(Exception error) {
+                        Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    public void callTranslate(int userId, int proficiencyId) {
+        if (mSipAccount == null) {
+            return;
+        }
+        getTranslateProfile(userId, proficiencyId);
+    }
+
+    public void closeCall() {
+        SipServiceCommand.hangUpActiveCalls(this, mSipAccount.getIdUri());
+    }
+
+    public void acceptCall(String accountId, int callId) {
+        SipServiceCommand.acceptIncomingCall(mContext, accountId, callId);
+    }
+
+    public void goToCallFragment(Fragment fragment, Bundle bundle) {
+        switchFragment(fragment, R.id.fragment_layout, bundle, false);
+    }
+
+    private void setSideMenu() {
+
+        mNavItems.add(new NavItem(NavItem.PREFERENCE, "Preferences", "Change your preferences", R.drawable.gear));
+        mNavItems.add(new NavItem(NavItem.PROFILE, "Profile", "Change your profile infos", R.drawable.man));
+        mNavItems.add(new NavItem(NavItem.LOGOUT, "Logout", "Logout", R.drawable.ic_logout)); //ver outro icone
+
+        // DrawerLayout
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+
+        TextView name = (TextView) mDrawerLayout.findViewById(R.id.userName);
+        TextView credits = (TextView) mDrawerLayout.findViewById(R.id.credits);
+        TextView statusTranslator = (TextView) mDrawerLayout.findViewById(R.id.status_translator);
+
+        name.setText(User.getInstance().getUserData(RequestManager.NAME));
+        credits.setText(String.format(getResources().getString(R.string.credits_text), User.getInstance().getUserData(RequestManager.CREDITS)));
+
+        if (User.getInstance().getUserData(RequestManager.ROLE) == null) {
+            statusTranslator.setVisibility(View.GONE);
+        } else {
+            if (Integer.valueOf(User.getInstance().getUserData(RequestManager.ROLE)) == 1) {
+                statusTranslator.setVisibility(View.GONE);
+            } else {
+                String status;
+                if (SharedPrefsUtil.getTranslatorStatus(mContext)) {
+                    status = getResources().getString(R.string.online);
+                } else {
+                    status = getResources().getString(R.string.offline);
+                }
+                statusTranslator.setText(String.format(getResources().getString(R.string.status_translator_home), status));
+            }
+        }
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
+
+        // Populate the Navigtion Drawer with options
+        mDrawerPane = (RelativeLayout) findViewById(R.id.drawerPane);
+        mDrawerList = (ListView) findViewById(R.id.navList);
+        DrawerListAdapter adapter = new DrawerListAdapter(this, mNavItems);
+        mDrawerList.setAdapter(adapter);
+
+        // Drawer Item click listeners
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent;
+                switch (position) {
+                    case NavItem.LOGOUT:
+                        intent = new Intent(mContext, MainActivity.class);
+                        startActivity(intent);
+                        mLogout = true;
+                        User.getInstance().clearUserData(mContext);
+                        break;
+
+                    case NavItem.PROFILE:
+                        intent = new Intent(mContext, UserActivity.class);
+                        startActivity(intent);
+                        break;
+
+                    case NavItem.PREFERENCE:
+                        intent = new Intent(mContext, SettingsActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                mDrawerLayout.closeDrawer(mDrawerPane);
+            }
+        });
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+}

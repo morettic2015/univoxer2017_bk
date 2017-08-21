@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundApp2"
+    android:paddingBottom="20dp"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    android:paddingTop="25dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/status_translator_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/status_translator_title"
+            android:textColor="@color/white" />
+
+        <Switch
+            android:id="@+id/switch_status_translator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/status_translator"
+            android:textAlignment="viewStart"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/buy_credit_text"
+        android:id="@+id/btn_buy_credits"
+        android:textColor="@color/white"
+        android:background="@drawable/buttonshape"
+        android:layout_above="@+id/btn_open_panel"/>
+
+    <Button
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/online_panel"
+        android:id="@+id/btn_open_panel"
+        android:textColor="@color/white"
+        android:background="@drawable/buttonshape" />
+</RelativeLayout>

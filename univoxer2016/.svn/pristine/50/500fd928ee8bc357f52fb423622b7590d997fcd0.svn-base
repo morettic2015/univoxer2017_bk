@@ -1,0 +1,25 @@
+package com.univoxer.android;
+
+import android.app.Application;
+
+import com.univoxer.android.network.NetworkManager;
+
+import net.gotev.sipservice.Logger;
+import net.gotev.sipservice.SipService;
+
+/**
+ * Created by Gustavo on 26/05/2016.
+ * UnivoxerApplication
+ */
+public class UnivoxerApplication extends Application {
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        Logger.setLogLevel(Logger.LogLevel.DEBUG);
+
+        NetworkManager.getInstance().init(this);
+
+    }
+}

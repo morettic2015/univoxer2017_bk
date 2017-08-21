@@ -1,0 +1,131 @@
+package com.univoxer.android.user;
+
+import android.app.DatePickerDialog;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.VolleyError;
+import com.univoxer.android.R;
+import com.univoxer.android.Utils.SharedPrefsUtil;
+import com.univoxer.android.Utils.Util;
+import com.univoxer.android.commons.BaseFragment;
+import com.univoxer.android.network.NetworkManager;
+import com.univoxer.android.network.NetworkRequestCallback;
+import com.univoxer.android.network.RequestManager;
+
+import org.json.JSONObject;
+
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Created by Gustavo on 27/07/2016.
+ */
+public class UserFragment extends BaseFragment {
+
+    private int mMonth;
+    private int mDay;
+    private int mYear;
+    private TextView mTextDate;
+    private EditText mNameText;
+    private Button mSaveButton;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.user_fragment, container, false);
+
+        String birthday = User.getInstance().getUserData(RequestManager.BIRTHDAY);
+
+        if (birthday.equals("0000-00-00")) {
+            Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+            Util.showAlert(getString(R.string.config_date_message), mContext);
+        } else {
+            String[] parts = birthday.split("-");
+            mYear = Integer.parseInt(parts[0]);
+            mMonth = Integer.parseInt(parts[1]);
+            mDay = Integer.parseInt(parts[2]);
+        }
+
+        mTextDate = (TextView) view.findViewById(R.id.text_date);
+        mTextDate.setText(String.format(getResources().getString(R.string.date_form), mDay, mMonth, mYear));
+
+        LinearLayout date_layout = (LinearLayout) view.findViewById(R.id.date_layout);
+        date_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        mTextDate.setText(String.format(getResources().getString(R.string.date_form), day, month + 1, year));
+                        mYear = year;
+                        mMonth = month + 1;
+                        mDay = day;
+                    }
+                }, mYear, mMonth, mDay).show();
+            }
+        });
+
+        mNameText = (EditText) view.findViewById(R.id.txt_name);
+        mNameText.setText(User.getInstance().getUserData(RequestManager.NAME));
+
+        mSaveButton = (Button) view.findViewById(R.id.btn_save);
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveProfile();
+            }
+        });
+
+        return view;
+    }
+
+    private void saveProfile() {
+        String month = String.valueOf(mMonth);
+        if (mMonth < 10) {
+            month = "0" + mMonth;
+        }
+        String birthDate = mYear + "-" + month + "-" + mDay;
+        String name = mNameText.getText().toString();
+
+        Map<String, String> params = new HashMap<>();
+        params.put(RequestManager.ACTION, RequestManager.ACTIONS.SAVE_PROFILE.name());
+        params.put(RequestManager.ID_USER, User.getInstance().getUserData(RequestManager.ID_USER));
+        params.put(RequestManager.EMAIL, User.getInstance().getUserData(RequestManager.EMAIL));
+        params.put(RequestManager.NAME, name);
+        params.put(RequestManager.NATURE, Util.getTokenByIdLanguage(Integer.parseInt(User.getInstance().getUserData(RequestManager.NATURE))));
+        params.put(RequestManager.PROFICIENCY, Util.getTokenByIdLanguage(Integer.parseInt(User.getInstance().getUserData(RequestManager.PROFICIENCY))));
+        params.put(RequestManager.ID_ROLE, User.getInstance().getUserData(RequestManager.ROLE));
+        params.put(RequestManager.PASSWORD, SharedPrefsUtil.getUserPassword(mContext));
+        params.put(RequestManager.BIRTHDAY, birthDate);
+
+        NetworkManager.getInstance().doPostWithParams(RequestManager.URL, params, "updateProfile", new NetworkRequestCallback<JSONObject>() {
+            @Override
+            public void onRequestResponse(JSONObject response) {
+                HashMap<String, String> params = RequestManager.jsonToMap(response);
+                String message = params.get(RequestManager.MESSAGE);
+                if (message.equals(RequestManager.MESSAGES.UPDATED.name())) {
+                    //Util.showAlert(getString(R.string.message_updated), mContext);
+                    User.getInstance().saveUserData(params);
+                    getActivity().onBackPressed();
+                }
+            }
+
+            @Override
+            public void onRequestError(VolleyError error) {
+                Toast.makeText(mContext, getString(R.string.save_profile_error), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+}

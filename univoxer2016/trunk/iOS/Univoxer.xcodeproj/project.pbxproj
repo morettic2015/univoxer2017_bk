@@ -1,0 +1,885 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0B040FC5162478276977C1CF /* libPods-Univoxer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7643344BDD3D29A2D747B75 /* libPods-Univoxer.a */; };
+		85E15DFAE2054C36960B529F /* libPods-UnivoxerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1979A4007DD56DF29AF0D2DA /* libPods-UnivoxerTests.a */; };
+		DF33E86C1CBEE31800DFA059 /* HttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = DF33E86B1CBEE31800DFA059 /* HttpRequest.m */; };
+		DF33E8711CBEE78B00DFA059 /* ServerAPIFacade.m in Sources */ = {isa = PBXBuildFile; fileRef = DF33E8701CBEE78B00DFA059 /* ServerAPIFacade.m */; };
+		DF33E8731CBEE86200DFA059 /* ServerAPIFacadeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DF33E8721CBEE86200DFA059 /* ServerAPIFacadeTests.m */; };
+		DF33E8791CC1A37C00DFA059 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF33E8771CC1A37C00DFA059 /* ProfileViewController.m */; };
+		DF33E87D1CC1A45200DFA059 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF33E87C1CC1A45200DFA059 /* HomeViewController.m */; };
+		DF5914E61CFCEFDE00DEB612 /* RegisterUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF5914E51CFCEFDE00DEB612 /* RegisterUserViewController.m */; };
+		DF5914E91CFE418200DEB612 /* TranslatorLaguagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF5914E81CFE418200DEB612 /* TranslatorLaguagesTableViewController.m */; };
+		DF7CEB581CDBEBAC00D0D665 /* libg7221codec-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB461CDBEBAC00D0D665 /* libg7221codec-armv7-apple-darwin_ios.a */; };
+		DF7CEB591CDBEBAC00D0D665 /* libgsmcodec-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB471CDBEBAC00D0D665 /* libgsmcodec-armv7-apple-darwin_ios.a */; };
+		DF7CEB5A1CDBEBAC00D0D665 /* libilbccodec-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB481CDBEBAC00D0D665 /* libilbccodec-armv7-apple-darwin_ios.a */; };
+		DF7CEB5B1CDBEBAC00D0D665 /* libpj-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB491CDBEBAC00D0D665 /* libpj-armv7-apple-darwin_ios.a */; };
+		DF7CEB5C1CDBEBAC00D0D665 /* libpjlib-util-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB4A1CDBEBAC00D0D665 /* libpjlib-util-armv7-apple-darwin_ios.a */; };
+		DF7CEB5D1CDBEBAC00D0D665 /* libpjmedia-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB4B1CDBEBAC00D0D665 /* libpjmedia-armv7-apple-darwin_ios.a */; };
+		DF7CEB5E1CDBEBAC00D0D665 /* libpjmedia-audiodev-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB4C1CDBEBAC00D0D665 /* libpjmedia-audiodev-armv7-apple-darwin_ios.a */; };
+		DF7CEB5F1CDBEBAC00D0D665 /* libpjmedia-codec-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB4D1CDBEBAC00D0D665 /* libpjmedia-codec-armv7-apple-darwin_ios.a */; };
+		DF7CEB601CDBEBAC00D0D665 /* libpjmedia-videodev-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB4E1CDBEBAC00D0D665 /* libpjmedia-videodev-armv7-apple-darwin_ios.a */; };
+		DF7CEB611CDBEBAC00D0D665 /* libpjnath-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB4F1CDBEBAC00D0D665 /* libpjnath-armv7-apple-darwin_ios.a */; };
+		DF7CEB621CDBEBAC00D0D665 /* libpjsip-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB501CDBEBAC00D0D665 /* libpjsip-armv7-apple-darwin_ios.a */; };
+		DF7CEB631CDBEBAC00D0D665 /* libpjsip-simple-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB511CDBEBAC00D0D665 /* libpjsip-simple-armv7-apple-darwin_ios.a */; };
+		DF7CEB641CDBEBAC00D0D665 /* libpjsip-ua-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB521CDBEBAC00D0D665 /* libpjsip-ua-armv7-apple-darwin_ios.a */; };
+		DF7CEB651CDBEBAC00D0D665 /* libpjsua-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB531CDBEBAC00D0D665 /* libpjsua-armv7-apple-darwin_ios.a */; };
+		DF7CEB661CDBEBAC00D0D665 /* libpjsua2-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB541CDBEBAC00D0D665 /* libpjsua2-armv7-apple-darwin_ios.a */; };
+		DF7CEB671CDBEBAC00D0D665 /* libresample-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB551CDBEBAC00D0D665 /* libresample-armv7-apple-darwin_ios.a */; };
+		DF7CEB681CDBEBAC00D0D665 /* libspeex-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB561CDBEBAC00D0D665 /* libspeex-armv7-apple-darwin_ios.a */; };
+		DF7CEB691CDBEBAC00D0D665 /* libsrtp-armv7-apple-darwin_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB571CDBEBAC00D0D665 /* libsrtp-armv7-apple-darwin_ios.a */; };
+		DF7CEB6B1CDBEC1900D0D665 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB6A1CDBEC1900D0D665 /* AVFoundation.framework */; };
+		DF7CEB6D1CDBEC2300D0D665 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB6C1CDBEC2300D0D665 /* CFNetwork.framework */; };
+		DF7CEB6F1CDBEC2D00D0D665 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7CEB6E1CDBEC2D00D0D665 /* AudioToolbox.framework */; };
+		DF7CEB741CDBEEBA00D0D665 /* SipFacade.c in Sources */ = {isa = PBXBuildFile; fileRef = DF7CEB731CDBEEBA00D0D665 /* SipFacade.c */; };
+		DFD3E6611CBE9C13003669E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DFD3E6601CBE9C13003669E7 /* main.m */; };
+		DFD3E6641CBE9C13003669E7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DFD3E6631CBE9C13003669E7 /* AppDelegate.m */; };
+		DFD3E6671CBE9C13003669E7 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFD3E6661CBE9C13003669E7 /* LoginViewController.m */; };
+		DFD3E66A1CBE9C13003669E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFD3E6681CBE9C13003669E7 /* Main.storyboard */; };
+		DFD3E66C1CBE9C13003669E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFD3E66B1CBE9C13003669E7 /* Assets.xcassets */; };
+		DFD3E66F1CBE9C13003669E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFD3E66D1CBE9C13003669E7 /* LaunchScreen.storyboard */; };
+		DFD3E67A1CBE9C13003669E7 /* UnivoxerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DFD3E6791CBE9C13003669E7 /* UnivoxerTests.m */; };
+		DFD3E6851CBE9C13003669E7 /* UnivoxerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = DFD3E6841CBE9C13003669E7 /* UnivoxerUITests.m */; };
+		F912D45847806155C32AFCD9 /* libPods-UnivoxerUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C83AEF70E074CB30029FA0F /* libPods-UnivoxerUITests.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DFD3E6761CBE9C13003669E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DFD3E6541CBE9C13003669E7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DFD3E65B1CBE9C13003669E7;
+			remoteInfo = Univoxer;
+		};
+		DFD3E6811CBE9C13003669E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DFD3E6541CBE9C13003669E7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DFD3E65B1CBE9C13003669E7;
+			remoteInfo = Univoxer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1979A4007DD56DF29AF0D2DA /* libPods-UnivoxerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UnivoxerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		468F0F1207D8679E1CF9C6CD /* Pods-Univoxer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Univoxer.release.xcconfig"; path = "Pods/Target Support Files/Pods-Univoxer/Pods-Univoxer.release.xcconfig"; sourceTree = "<group>"; };
+		6AD0CF411F3B096D0290C152 /* Pods-UnivoxerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnivoxerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnivoxerUITests/Pods-UnivoxerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		7A89F8898977B8090F51DCBE /* Pods-Univoxer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Univoxer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Univoxer/Pods-Univoxer.debug.xcconfig"; sourceTree = "<group>"; };
+		7E09FE8FD88BD760139BACCD /* Pods-UnivoxerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnivoxerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnivoxerTests/Pods-UnivoxerTests.release.xcconfig"; sourceTree = "<group>"; };
+		9C83AEF70E074CB30029FA0F /* libPods-UnivoxerUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UnivoxerUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE044B206ACB3CBC79D3E432 /* Pods-UnivoxerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnivoxerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UnivoxerTests/Pods-UnivoxerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		DF33E86A1CBEE31800DFA059 /* HttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpRequest.h; sourceTree = "<group>"; };
+		DF33E86B1CBEE31800DFA059 /* HttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpRequest.m; sourceTree = "<group>"; };
+		DF33E86F1CBEE78B00DFA059 /* ServerAPIFacade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerAPIFacade.h; sourceTree = "<group>"; };
+		DF33E8701CBEE78B00DFA059 /* ServerAPIFacade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerAPIFacade.m; sourceTree = "<group>"; };
+		DF33E8721CBEE86200DFA059 /* ServerAPIFacadeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerAPIFacadeTests.m; sourceTree = "<group>"; };
+		DF33E8761CC1A37C00DFA059 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = ../ProfileViewController.h; sourceTree = "<group>"; };
+		DF33E8771CC1A37C00DFA059 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = ../ProfileViewController.m; sourceTree = "<group>"; };
+		DF33E87B1CC1A45200DFA059 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		DF33E87C1CC1A45200DFA059 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		DF5914E41CFCEFDE00DEB612 /* RegisterUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterUserViewController.h; sourceTree = "<group>"; };
+		DF5914E51CFCEFDE00DEB612 /* RegisterUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterUserViewController.m; sourceTree = "<group>"; };
+		DF5914E71CFE418200DEB612 /* TranslatorLaguagesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TranslatorLaguagesTableViewController.h; sourceTree = "<group>"; };
+		DF5914E81CFE418200DEB612 /* TranslatorLaguagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranslatorLaguagesTableViewController.m; sourceTree = "<group>"; };
+		DF7CEB461CDBEBAC00D0D665 /* libg7221codec-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libg7221codec-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libg7221codec-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB471CDBEBAC00D0D665 /* libgsmcodec-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libgsmcodec-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libgsmcodec-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB481CDBEBAC00D0D665 /* libilbccodec-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libilbccodec-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libilbccodec-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB491CDBEBAC00D0D665 /* libpj-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpj-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libpj-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB4A1CDBEBAC00D0D665 /* libpjlib-util-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjlib-util-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libpjlib-util-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB4B1CDBEBAC00D0D665 /* libpjmedia-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjmedia-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libpjmedia-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB4C1CDBEBAC00D0D665 /* libpjmedia-audiodev-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjmedia-audiodev-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libpjmedia-audiodev-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB4D1CDBEBAC00D0D665 /* libpjmedia-codec-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjmedia-codec-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libpjmedia-codec-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB4E1CDBEBAC00D0D665 /* libpjmedia-videodev-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjmedia-videodev-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libpjmedia-videodev-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB4F1CDBEBAC00D0D665 /* libpjnath-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjnath-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libpjnath-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB501CDBEBAC00D0D665 /* libpjsip-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjsip-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libpjsip-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB511CDBEBAC00D0D665 /* libpjsip-simple-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjsip-simple-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libpjsip-simple-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB521CDBEBAC00D0D665 /* libpjsip-ua-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjsip-ua-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libpjsip-ua-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB531CDBEBAC00D0D665 /* libpjsua-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjsua-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libpjsua-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB541CDBEBAC00D0D665 /* libpjsua2-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpjsua2-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libpjsua2-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB551CDBEBAC00D0D665 /* libresample-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libresample-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libresample-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB561CDBEBAC00D0D665 /* libspeex-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libspeex-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libspeex-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB571CDBEBAC00D0D665 /* libsrtp-armv7-apple-darwin_ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libsrtp-armv7-apple-darwin_ios.a"; path = "libs/pjsip/lib/libsrtp-armv7-apple-darwin_ios.a"; sourceTree = "<group>"; };
+		DF7CEB6A1CDBEC1900D0D665 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		DF7CEB6C1CDBEC2300D0D665 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		DF7CEB6E1CDBEC2D00D0D665 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		DF7CEB721CDBEE4A00D0D665 /* SipFacade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SipFacade.h; sourceTree = "<group>"; };
+		DF7CEB731CDBEEBA00D0D665 /* SipFacade.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SipFacade.c; sourceTree = "<group>"; };
+		DFD3E65C1CBE9C13003669E7 /* Univoxer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Univoxer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFD3E6601CBE9C13003669E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DFD3E6621CBE9C13003669E7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		DFD3E6631CBE9C13003669E7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DFD3E6651CBE9C13003669E7 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		DFD3E6661CBE9C13003669E7 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		DFD3E6691CBE9C13003669E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DFD3E66B1CBE9C13003669E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DFD3E66E1CBE9C13003669E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DFD3E6701CBE9C13003669E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFD3E6751CBE9C13003669E7 /* UnivoxerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnivoxerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFD3E6791CBE9C13003669E7 /* UnivoxerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UnivoxerTests.m; sourceTree = "<group>"; };
+		DFD3E67B1CBE9C13003669E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFD3E6801CBE9C13003669E7 /* UnivoxerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnivoxerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFD3E6841CBE9C13003669E7 /* UnivoxerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UnivoxerUITests.m; sourceTree = "<group>"; };
+		DFD3E6861CBE9C13003669E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EBE8E6ADB94AA111B8D0F539 /* Pods-UnivoxerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnivoxerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UnivoxerUITests/Pods-UnivoxerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		F7643344BDD3D29A2D747B75 /* libPods-Univoxer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Univoxer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DFD3E6591CBE9C13003669E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF7CEB6F1CDBEC2D00D0D665 /* AudioToolbox.framework in Frameworks */,
+				DF7CEB6D1CDBEC2300D0D665 /* CFNetwork.framework in Frameworks */,
+				DF7CEB6B1CDBEC1900D0D665 /* AVFoundation.framework in Frameworks */,
+				DF7CEB581CDBEBAC00D0D665 /* libg7221codec-armv7-apple-darwin_ios.a in Frameworks */,
+				DF7CEB591CDBEBAC00D0D665 /* libgsmcodec-armv7-apple-darwin_ios.a in Frameworks */,
+				DF7CEB5A1CDBEBAC00D0D665 /* libilbccodec-armv7-apple-darwin_ios.a in Frameworks */,
+				DF7CEB5B1CDBEBAC00D0D665 /* libpj-armv7-apple-darwin_ios.a in Frameworks */,
+				DF7CEB5C1CDBEBAC00D0D665 /* libpjlib-util-armv7-apple-darwin_ios.a in Frameworks */,
+				DF7CEB5D1CDBEBAC00D0D665 /* libpjmedia-armv7-apple-darwin_ios.a in Frameworks */,
+				DF7CEB5E1CDBEBAC00D0D665 /* libpjmedia-audiodev-armv7-apple-darwin_ios.a in Frameworks */,
+				DF7CEB5F1CDBEBAC00D0D665 /* libpjmedia-codec-armv7-apple-darwin_ios.a in Frameworks */,
+				DF7CEB601CDBEBAC00D0D665 /* libpjmedia-videodev-armv7-apple-darwin_ios.a in Frameworks */,
+				DF7CEB611CDBEBAC00D0D665 /* libpjnath-armv7-apple-darwin_ios.a in Frameworks */,
+				DF7CEB621CDBEBAC00D0D665 /* libpjsip-armv7-apple-darwin_ios.a in Frameworks */,
+				DF7CEB631CDBEBAC00D0D665 /* libpjsip-simple-armv7-apple-darwin_ios.a in Frameworks */,
+				DF7CEB641CDBEBAC00D0D665 /* libpjsip-ua-armv7-apple-darwin_ios.a in Frameworks */,
+				DF7CEB651CDBEBAC00D0D665 /* libpjsua-armv7-apple-darwin_ios.a in Frameworks */,
+				DF7CEB661CDBEBAC00D0D665 /* libpjsua2-armv7-apple-darwin_ios.a in Frameworks */,
+				DF7CEB671CDBEBAC00D0D665 /* libresample-armv7-apple-darwin_ios.a in Frameworks */,
+				DF7CEB681CDBEBAC00D0D665 /* libspeex-armv7-apple-darwin_ios.a in Frameworks */,
+				DF7CEB691CDBEBAC00D0D665 /* libsrtp-armv7-apple-darwin_ios.a in Frameworks */,
+				0B040FC5162478276977C1CF /* libPods-Univoxer.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFD3E6721CBE9C13003669E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85E15DFAE2054C36960B529F /* libPods-UnivoxerTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFD3E67D1CBE9C13003669E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F912D45847806155C32AFCD9 /* libPods-UnivoxerUITests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DF33E8691CBEE2AB00DFA059 /* HttpRequest */ = {
+			isa = PBXGroup;
+			children = (
+				DF33E86A1CBEE31800DFA059 /* HttpRequest.h */,
+				DF33E86B1CBEE31800DFA059 /* HttpRequest.m */,
+			);
+			name = HttpRequest;
+			sourceTree = "<group>";
+		};
+		DF33E86E1CBEE76B00DFA059 /* ServerAPIFacade */ = {
+			isa = PBXGroup;
+			children = (
+				DF33E86F1CBEE78B00DFA059 /* ServerAPIFacade.h */,
+				DF33E8701CBEE78B00DFA059 /* ServerAPIFacade.m */,
+			);
+			name = ServerAPIFacade;
+			sourceTree = "<group>";
+		};
+		DF7CEB701CDBEC3500D0D665 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				DF7CEB6E1CDBEC2D00D0D665 /* AudioToolbox.framework */,
+				DF7CEB6C1CDBEC2300D0D665 /* CFNetwork.framework */,
+				DF7CEB6A1CDBEC1900D0D665 /* AVFoundation.framework */,
+				DF7CEB461CDBEBAC00D0D665 /* libg7221codec-armv7-apple-darwin_ios.a */,
+				DF7CEB471CDBEBAC00D0D665 /* libgsmcodec-armv7-apple-darwin_ios.a */,
+				DF7CEB481CDBEBAC00D0D665 /* libilbccodec-armv7-apple-darwin_ios.a */,
+				DF7CEB491CDBEBAC00D0D665 /* libpj-armv7-apple-darwin_ios.a */,
+				DF7CEB4A1CDBEBAC00D0D665 /* libpjlib-util-armv7-apple-darwin_ios.a */,
+				DF7CEB4B1CDBEBAC00D0D665 /* libpjmedia-armv7-apple-darwin_ios.a */,
+				DF7CEB4C1CDBEBAC00D0D665 /* libpjmedia-audiodev-armv7-apple-darwin_ios.a */,
+				DF7CEB4D1CDBEBAC00D0D665 /* libpjmedia-codec-armv7-apple-darwin_ios.a */,
+				DF7CEB4E1CDBEBAC00D0D665 /* libpjmedia-videodev-armv7-apple-darwin_ios.a */,
+				DF7CEB4F1CDBEBAC00D0D665 /* libpjnath-armv7-apple-darwin_ios.a */,
+				DF7CEB501CDBEBAC00D0D665 /* libpjsip-armv7-apple-darwin_ios.a */,
+				DF7CEB511CDBEBAC00D0D665 /* libpjsip-simple-armv7-apple-darwin_ios.a */,
+				DF7CEB521CDBEBAC00D0D665 /* libpjsip-ua-armv7-apple-darwin_ios.a */,
+				DF7CEB531CDBEBAC00D0D665 /* libpjsua-armv7-apple-darwin_ios.a */,
+				DF7CEB541CDBEBAC00D0D665 /* libpjsua2-armv7-apple-darwin_ios.a */,
+				DF7CEB551CDBEBAC00D0D665 /* libresample-armv7-apple-darwin_ios.a */,
+				DF7CEB561CDBEBAC00D0D665 /* libspeex-armv7-apple-darwin_ios.a */,
+				DF7CEB571CDBEBAC00D0D665 /* libsrtp-armv7-apple-darwin_ios.a */,
+			);
+			name = Framework;
+			sourceTree = "<group>";
+		};
+		DF7CEB711CDBEE1300D0D665 /* SipFacade */ = {
+			isa = PBXGroup;
+			children = (
+				DF7CEB721CDBEE4A00D0D665 /* SipFacade.h */,
+				DF7CEB731CDBEEBA00D0D665 /* SipFacade.c */,
+			);
+			name = SipFacade;
+			sourceTree = "<group>";
+		};
+		DFD3E6531CBE9C13003669E7 = {
+			isa = PBXGroup;
+			children = (
+				DF7CEB701CDBEC3500D0D665 /* Framework */,
+				DFD3E65E1CBE9C13003669E7 /* Univoxer */,
+				DFD3E6781CBE9C13003669E7 /* UnivoxerTests */,
+				DFD3E6831CBE9C13003669E7 /* UnivoxerUITests */,
+				DFD3E65D1CBE9C13003669E7 /* Products */,
+				E947BA1DF9B21DF92130B449 /* Pods */,
+				E0B4284A13AD2F567B838E94 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		DFD3E65D1CBE9C13003669E7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DFD3E65C1CBE9C13003669E7 /* Univoxer.app */,
+				DFD3E6751CBE9C13003669E7 /* UnivoxerTests.xctest */,
+				DFD3E6801CBE9C13003669E7 /* UnivoxerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DFD3E65E1CBE9C13003669E7 /* Univoxer */ = {
+			isa = PBXGroup;
+			children = (
+				DF7CEB711CDBEE1300D0D665 /* SipFacade */,
+				DF33E86E1CBEE76B00DFA059 /* ServerAPIFacade */,
+				DF33E8691CBEE2AB00DFA059 /* HttpRequest */,
+				DFD3E6621CBE9C13003669E7 /* AppDelegate.h */,
+				DFD3E6631CBE9C13003669E7 /* AppDelegate.m */,
+				DF5914E41CFCEFDE00DEB612 /* RegisterUserViewController.h */,
+				DF5914E51CFCEFDE00DEB612 /* RegisterUserViewController.m */,
+				DF5914E71CFE418200DEB612 /* TranslatorLaguagesTableViewController.h */,
+				DF5914E81CFE418200DEB612 /* TranslatorLaguagesTableViewController.m */,
+				DF33E87B1CC1A45200DFA059 /* HomeViewController.h */,
+				DF33E87C1CC1A45200DFA059 /* HomeViewController.m */,
+				DFD3E6651CBE9C13003669E7 /* LoginViewController.h */,
+				DFD3E6661CBE9C13003669E7 /* LoginViewController.m */,
+				DF33E8761CC1A37C00DFA059 /* ProfileViewController.h */,
+				DF33E8771CC1A37C00DFA059 /* ProfileViewController.m */,
+				DFD3E6681CBE9C13003669E7 /* Main.storyboard */,
+				DFD3E66B1CBE9C13003669E7 /* Assets.xcassets */,
+				DFD3E66D1CBE9C13003669E7 /* LaunchScreen.storyboard */,
+				DFD3E6701CBE9C13003669E7 /* Info.plist */,
+				DFD3E65F1CBE9C13003669E7 /* Supporting Files */,
+			);
+			path = Univoxer;
+			sourceTree = "<group>";
+		};
+		DFD3E65F1CBE9C13003669E7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DFD3E6601CBE9C13003669E7 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DFD3E6781CBE9C13003669E7 /* UnivoxerTests */ = {
+			isa = PBXGroup;
+			children = (
+				DFD3E6791CBE9C13003669E7 /* UnivoxerTests.m */,
+				DFD3E67B1CBE9C13003669E7 /* Info.plist */,
+				DF33E8721CBEE86200DFA059 /* ServerAPIFacadeTests.m */,
+			);
+			path = UnivoxerTests;
+			sourceTree = "<group>";
+		};
+		DFD3E6831CBE9C13003669E7 /* UnivoxerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DFD3E6841CBE9C13003669E7 /* UnivoxerUITests.m */,
+				DFD3E6861CBE9C13003669E7 /* Info.plist */,
+			);
+			path = UnivoxerUITests;
+			sourceTree = "<group>";
+		};
+		E0B4284A13AD2F567B838E94 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F7643344BDD3D29A2D747B75 /* libPods-Univoxer.a */,
+				1979A4007DD56DF29AF0D2DA /* libPods-UnivoxerTests.a */,
+				9C83AEF70E074CB30029FA0F /* libPods-UnivoxerUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E947BA1DF9B21DF92130B449 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7A89F8898977B8090F51DCBE /* Pods-Univoxer.debug.xcconfig */,
+				468F0F1207D8679E1CF9C6CD /* Pods-Univoxer.release.xcconfig */,
+				AE044B206ACB3CBC79D3E432 /* Pods-UnivoxerTests.debug.xcconfig */,
+				7E09FE8FD88BD760139BACCD /* Pods-UnivoxerTests.release.xcconfig */,
+				EBE8E6ADB94AA111B8D0F539 /* Pods-UnivoxerUITests.debug.xcconfig */,
+				6AD0CF411F3B096D0290C152 /* Pods-UnivoxerUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DFD3E65B1CBE9C13003669E7 /* Univoxer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFD3E6891CBE9C13003669E7 /* Build configuration list for PBXNativeTarget "Univoxer" */;
+			buildPhases = (
+				05048964D14297AF99D78453 /* [CP] Check Pods Manifest.lock */,
+				DFD3E6581CBE9C13003669E7 /* Sources */,
+				DFD3E6591CBE9C13003669E7 /* Frameworks */,
+				DFD3E65A1CBE9C13003669E7 /* Resources */,
+				B170B5303D555BABB18AFEF3 /* [CP] Embed Pods Frameworks */,
+				C643B586C1E44AB74D622179 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Univoxer;
+			productName = Univoxer;
+			productReference = DFD3E65C1CBE9C13003669E7 /* Univoxer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DFD3E6741CBE9C13003669E7 /* UnivoxerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFD3E68C1CBE9C13003669E7 /* Build configuration list for PBXNativeTarget "UnivoxerTests" */;
+			buildPhases = (
+				53CC7519E10B42D7622FA4F1 /* [CP] Check Pods Manifest.lock */,
+				DFD3E6711CBE9C13003669E7 /* Sources */,
+				DFD3E6721CBE9C13003669E7 /* Frameworks */,
+				DFD3E6731CBE9C13003669E7 /* Resources */,
+				2A33AD586C27F25E3B03807A /* [CP] Embed Pods Frameworks */,
+				221F7732AE64FC2B32AA0AFC /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DFD3E6771CBE9C13003669E7 /* PBXTargetDependency */,
+			);
+			name = UnivoxerTests;
+			productName = UnivoxerTests;
+			productReference = DFD3E6751CBE9C13003669E7 /* UnivoxerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DFD3E67F1CBE9C13003669E7 /* UnivoxerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFD3E68F1CBE9C13003669E7 /* Build configuration list for PBXNativeTarget "UnivoxerUITests" */;
+			buildPhases = (
+				7A70B1C88751A239FB8B28F9 /* [CP] Check Pods Manifest.lock */,
+				DFD3E67C1CBE9C13003669E7 /* Sources */,
+				DFD3E67D1CBE9C13003669E7 /* Frameworks */,
+				DFD3E67E1CBE9C13003669E7 /* Resources */,
+				D7988037C44F3FEB25ED8DE5 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DFD3E6821CBE9C13003669E7 /* PBXTargetDependency */,
+			);
+			name = UnivoxerUITests;
+			productName = UnivoxerUITests;
+			productReference = DFD3E6801CBE9C13003669E7 /* UnivoxerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DFD3E6541CBE9C13003669E7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Sinapse;
+				TargetAttributes = {
+					DFD3E65B1CBE9C13003669E7 = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 249A3NJZPN;
+					};
+					DFD3E6741CBE9C13003669E7 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = DFD3E65B1CBE9C13003669E7;
+					};
+					DFD3E67F1CBE9C13003669E7 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = DFD3E65B1CBE9C13003669E7;
+					};
+				};
+			};
+			buildConfigurationList = DFD3E6571CBE9C13003669E7 /* Build configuration list for PBXProject "Univoxer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DFD3E6531CBE9C13003669E7;
+			productRefGroup = DFD3E65D1CBE9C13003669E7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DFD3E65B1CBE9C13003669E7 /* Univoxer */,
+				DFD3E6741CBE9C13003669E7 /* UnivoxerTests */,
+				DFD3E67F1CBE9C13003669E7 /* UnivoxerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DFD3E65A1CBE9C13003669E7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFD3E66F1CBE9C13003669E7 /* LaunchScreen.storyboard in Resources */,
+				DFD3E66C1CBE9C13003669E7 /* Assets.xcassets in Resources */,
+				DFD3E66A1CBE9C13003669E7 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFD3E6731CBE9C13003669E7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFD3E67E1CBE9C13003669E7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		05048964D14297AF99D78453 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		221F7732AE64FC2B32AA0AFC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UnivoxerTests/Pods-UnivoxerTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2A33AD586C27F25E3B03807A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UnivoxerTests/Pods-UnivoxerTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		53CC7519E10B42D7622FA4F1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7A70B1C88751A239FB8B28F9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B170B5303D555BABB18AFEF3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Univoxer/Pods-Univoxer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C643B586C1E44AB74D622179 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Univoxer/Pods-Univoxer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D7988037C44F3FEB25ED8DE5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UnivoxerUITests/Pods-UnivoxerUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DFD3E6581CBE9C13003669E7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFD3E6671CBE9C13003669E7 /* LoginViewController.m in Sources */,
+				DF33E8791CC1A37C00DFA059 /* ProfileViewController.m in Sources */,
+				DF33E86C1CBEE31800DFA059 /* HttpRequest.m in Sources */,
+				DFD3E6641CBE9C13003669E7 /* AppDelegate.m in Sources */,
+				DF7CEB741CDBEEBA00D0D665 /* SipFacade.c in Sources */,
+				DF33E8711CBEE78B00DFA059 /* ServerAPIFacade.m in Sources */,
+				DF33E87D1CC1A45200DFA059 /* HomeViewController.m in Sources */,
+				DFD3E6611CBE9C13003669E7 /* main.m in Sources */,
+				DF5914E91CFE418200DEB612 /* TranslatorLaguagesTableViewController.m in Sources */,
+				DF5914E61CFCEFDE00DEB612 /* RegisterUserViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFD3E6711CBE9C13003669E7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFD3E67A1CBE9C13003669E7 /* UnivoxerTests.m in Sources */,
+				DF33E8731CBEE86200DFA059 /* ServerAPIFacadeTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFD3E67C1CBE9C13003669E7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFD3E6851CBE9C13003669E7 /* UnivoxerUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DFD3E6771CBE9C13003669E7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DFD3E65B1CBE9C13003669E7 /* Univoxer */;
+			targetProxy = DFD3E6761CBE9C13003669E7 /* PBXContainerItemProxy */;
+		};
+		DFD3E6821CBE9C13003669E7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DFD3E65B1CBE9C13003669E7 /* Univoxer */;
+			targetProxy = DFD3E6811CBE9C13003669E7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DFD3E6681CBE9C13003669E7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DFD3E6691CBE9C13003669E7 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DFD3E66D1CBE9C13003669E7 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DFD3E66E1CBE9C13003669E7 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DFD3E6871CBE9C13003669E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		DFD3E6881CBE9C13003669E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DFD3E68A1CBE9C13003669E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A89F8898977B8090F51DCBE /* Pods-Univoxer.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					PJ_AUTOCONF,
+				);
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/libs/pjsip/include\"";
+				INFOPLIST_FILE = Univoxer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libs/pjsip/lib",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.sinapse.Univoxer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		DFD3E68B1CBE9C13003669E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 468F0F1207D8679E1CF9C6CD /* Pods-Univoxer.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = PJ_AUTOCONF;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/libs/pjsip/include\"";
+				INFOPLIST_FILE = Univoxer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libs/pjsip/lib",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.sinapse.Univoxer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		DFD3E68D1CBE9C13003669E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AE044B206ACB3CBC79D3E432 /* Pods-UnivoxerTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = UnivoxerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.sinapse.UnivoxerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Univoxer.app/Univoxer";
+			};
+			name = Debug;
+		};
+		DFD3E68E1CBE9C13003669E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E09FE8FD88BD760139BACCD /* Pods-UnivoxerTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = UnivoxerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.sinapse.UnivoxerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Univoxer.app/Univoxer";
+			};
+			name = Release;
+		};
+		DFD3E6901CBE9C13003669E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EBE8E6ADB94AA111B8D0F539 /* Pods-UnivoxerUITests.debug.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = UnivoxerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.sinapse.UnivoxerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Univoxer;
+			};
+			name = Debug;
+		};
+		DFD3E6911CBE9C13003669E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6AD0CF411F3B096D0290C152 /* Pods-UnivoxerUITests.release.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = UnivoxerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.sinapse.UnivoxerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Univoxer;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DFD3E6571CBE9C13003669E7 /* Build configuration list for PBXProject "Univoxer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFD3E6871CBE9C13003669E7 /* Debug */,
+				DFD3E6881CBE9C13003669E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFD3E6891CBE9C13003669E7 /* Build configuration list for PBXNativeTarget "Univoxer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFD3E68A1CBE9C13003669E7 /* Debug */,
+				DFD3E68B1CBE9C13003669E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFD3E68C1CBE9C13003669E7 /* Build configuration list for PBXNativeTarget "UnivoxerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFD3E68D1CBE9C13003669E7 /* Debug */,
+				DFD3E68E1CBE9C13003669E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFD3E68F1CBE9C13003669E7 /* Build configuration list for PBXNativeTarget "UnivoxerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFD3E6901CBE9C13003669E7 /* Debug */,
+				DFD3E6911CBE9C13003669E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DFD3E6541CBE9C13003669E7 /* Project object */;
+}

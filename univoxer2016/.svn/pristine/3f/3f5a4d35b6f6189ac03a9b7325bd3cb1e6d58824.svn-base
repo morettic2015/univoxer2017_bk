@@ -1,0 +1,211 @@
+package com.univoxer.android.sip;
+
+import android.app.KeyguardManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.media.AudioManager;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.os.PowerManager;
+import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.VolleyError;
+import com.univoxer.android.R;
+import com.univoxer.android.Utils.Util;
+import com.univoxer.android.commons.BaseActivity;
+import com.univoxer.android.home.activity.HomeActivity;
+import com.univoxer.android.home.fragments.IncomingFragment;
+import com.univoxer.android.network.NetworkManager;
+import com.univoxer.android.network.NetworkRequestCallback;
+import com.univoxer.android.network.RequestManager;
+
+import org.json.JSONObject;
+import org.pjsip.pjsua2.pjsip_inv_state;
+import org.pjsip.pjsua2.pjsip_status_code;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Created by Gustavo on 03/08/2016.
+ * IncomingActivity
+ */
+public class IncomingActivity extends BaseActivity {
+
+    private static final String TAG = IncomingFragment.class.getSimpleName();
+
+    private SipManagerService mSipManager;
+    private boolean mBounded;
+
+    public static final String ACCOUNT_ID = "ACCOUNT_ID";
+    public static final String CALL_ID = "CALL_ID";
+    public static final String SIP_NUMBER = "SIP_NUMBER";
+
+    private ImageView mCloseCall;
+    private ImageView mAudioType;
+    private ImageView mAcceptCall;
+
+    private ImageView mNatureFlag;
+    private ImageView mProficiencyFlag;
+    private TextView mUserName;
+
+    private int mNatureFlagId;
+    private int mProficiencyFlagId;
+    private String mUserNameText;
+
+    private String mAccountId;
+    private int mCallID;
+    private String mSipUser;
+
+    private Bundle mArgs;
+    private AudioManager mAudioManager;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.incoming_fragment);
+
+        bindService(new Intent(this, SipManagerService.class), mConnection, BIND_IMPORTANT);
+
+        mArgs = getIntent().getExtras();
+        mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager.setSpeakerphoneOn(true);
+
+        mAccountId = mArgs.getString(ACCOUNT_ID);
+        mCallID = mArgs.getInt(CALL_ID);
+        mSipUser = mArgs.getString(SIP_NUMBER);
+
+        mCloseCall = (ImageView) findViewById(R.id.close_call);
+        mAcceptCall = (ImageView) findViewById(R.id.accept_call);
+        mAudioType = (ImageView) findViewById(R.id.audio_type);
+
+        mNatureFlag = (ImageView) findViewById(R.id.flag_user);
+        mProficiencyFlag = (ImageView) findViewById(R.id.flag_translator);
+        mUserName = (TextView) findViewById(R.id.user_name);
+
+        mCloseCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSipManager.closeCall();
+            }
+        });
+
+        mAcceptCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSipManager.acceptCall(mAccountId, mCallID);
+                mAudioManager.setSpeakerphoneOn(true);
+                mAudioType.setVisibility(View.VISIBLE);
+                mAcceptCall.setVisibility(View.GONE);
+            }
+        });
+
+        mAudioType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAudioManager.setSpeakerphoneOn(!mAudioManager.isSpeakerphoneOn());
+                if (mAudioManager.isSpeakerphoneOn()) {
+                    mAudioType.setImageResource(R.drawable.audio_type);
+                } else {
+                    mAudioType.setImageResource(R.drawable.audio_type_off);
+                }
+            }
+        });
+
+        Map<String, String> params = new HashMap<>();
+        params.put(RequestManager.ACTION, RequestManager.ACTIONS.INFOCALL_TRANSLATOR.name());
+        params.put(RequestManager.ID_SIP, mSipUser);
+
+        NetworkManager.getInstance().doPostWithParams(RequestManager.URL, params, "info translator",
+                new NetworkRequestCallback<JSONObject>() {
+                    @Override
+                    public void onRequestResponse(JSONObject response) {
+                        HashMap<String, String> params = RequestManager.jsonToMap(response);
+                        String message = params.get(RequestManager.MESSAGE);
+
+                        if (message.equals(RequestManager.MESSAGES.INFO_FOUND.name())) {
+                            mNatureFlagId = Integer.valueOf(params.get(RequestManager.NATURE));
+                            mProficiencyFlagId = Integer.valueOf(params.get(RequestManager.PROFICIENCY));
+                            mUserNameText = params.get(RequestManager.NAME);
+
+                            mNatureFlag.setImageResource(Util.getFlagResource(mNatureFlagId));
+                            mNatureFlag.setVisibility(View.VISIBLE);
+                            mProficiencyFlag.setImageResource(Util.getFlagResource(mProficiencyFlagId));
+                            mProficiencyFlag.setVisibility(View.VISIBLE);
+                            mUserName.setText(mUserNameText);
+
+                        }
+
+                        Log.d(TAG, message);
+                    }
+
+                    @Override
+                    public void onRequestError(VolleyError error) {
+                        Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        unbindService(mConnection);
+    }
+
+    ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            mBounded = true;
+            SipManagerService.LocalBinder mLocalBinder = (SipManagerService.LocalBinder) iBinder;
+            mSipManager = mLocalBinder.getServerInstance(mContext, new SipEventsCallback() {
+                @Override
+                public void onCallStatusChanged(String accountID, int callID, pjsip_inv_state callStateCode, long connectTimestamp, boolean isLocalHold, boolean isLocalMute) {
+                    if (callStateCode == pjsip_inv_state.PJSIP_INV_STATE_DISCONNECTED) {
+                        Intent intent = new Intent(mContext, HomeActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onRegistration(String accountID, pjsip_status_code registrationStateCode) {
+
+                }
+
+                @Override
+                public void onIncomingCall(String accountID, int callID, String displayName, String remoteUri) {
+
+                }
+
+                @Override
+                public void onOutgoingCall(String accountID, int callID, String number) {
+
+                }
+            });
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            mSipManager = null;
+            mBounded = false;
+        }
+    };
+}

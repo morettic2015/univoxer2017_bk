@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundApp2"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/world_map"
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:src="@drawable/ic_world_map" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/select_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="@string/text_home_selecting_flags"
+        android:textColor="@color/white" />
+
+    <RelativeLayout
+        android:layout_marginTop="15dp"
+        android:id="@+id/select_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/world_map"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_base_credit" />
+
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/user_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:src="@drawable/ic_flag_pt"
+                    android:id="@+id/flag_user"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp" />
+
+                <TextView
+                    android:text="Português"
+                    android:layout_gravity="center"
+                    android:id="@+id/flag_user_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_arrow_to_left"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_arrow_to_right"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+            <LinearLayout
+                android:id="@+id/translator_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:src="@drawable/ic_flag_en"
+                    android:id="@+id/flag_translator"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp" />
+
+                <TextView
+                    android:text="Inglês"
+                    android:layout_gravity="center"
+                    android:id="@+id/flag_translator_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/buttonshape"
+        android:text="@string/button_home_to_call"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

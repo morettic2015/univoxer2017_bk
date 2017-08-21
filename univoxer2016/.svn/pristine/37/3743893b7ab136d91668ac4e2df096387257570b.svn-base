@@ -1,0 +1,12 @@
+package com.univoxer.android.network;
+
+/**
+ * Created by Gustavo on 26/05/2016.
+ * NetworkRequestCallback
+ */
+public interface NetworkRequestCallback<T> {
+
+    void onRequestResponse(T response);
+
+    void onRequestError(Exception error);
+}

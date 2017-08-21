@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "5e7f820b-791e-4c69-83b7-554e1ccbe19f",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "5e7f820b-791e-4c69-83b7-554e1ccbe19f" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "5e7f820b-791e-4c69-83b7-554e1ccbe19f" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "D3398CCC-9AB7-407C-BAE8-5DDC99711AC0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "5e7f820b-791e-4c69-83b7-554e1ccbe19f" : "univoxer2016\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Univoxer",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "trunk\/iOS\/Univoxer.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/morettic.com.br\/morettic\/univoxer2016",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5e7f820b-791e-4c69-83b7-554e1ccbe19f"
+    }
+  ]
+}

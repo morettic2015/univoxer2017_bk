@@ -1,0 +1,156 @@
+package com.univoxer.android.home.fragments;
+
+import android.content.Context;
+import android.media.AudioManager;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.VolleyError;
+import com.univoxer.android.R;
+import com.univoxer.android.Utils.Util;
+import com.univoxer.android.commons.BaseFragment;
+import com.univoxer.android.home.activity.HomeActivity;
+import com.univoxer.android.network.NetworkManager;
+import com.univoxer.android.network.NetworkRequestCallback;
+import com.univoxer.android.network.RequestManager;
+import com.univoxer.android.user.User;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Created by Gustavo on 10/07/2016.
+ * IncomingFragment
+ */
+public class IncomingFragment extends BaseFragment {
+
+    private static final String TAG = IncomingFragment.class.getSimpleName();
+
+    public static final String ACCOUNT_ID = "ACCOUNT_ID";
+    public static final String CALL_ID = "CALL_ID";
+    public static final String SIP_NUMBER = "SIP_NUMBER";
+
+    private ImageView mCloseCall;
+    private ImageView mAudioType;
+    private ImageView mAcceptCall;
+
+    private ImageView mNatureFlag;
+    private ImageView mProficiencyFlag;
+    private TextView mUserName;
+
+    private int mNatureFlagId;
+    private int mProficiencyFlagId;
+    private String mUserNameText;
+
+    private String mAccountId;
+    private int mCallID;
+    private String mSipUser;
+
+    private Bundle mArgs;
+
+    private HomeActivity mHomeActivity;
+    private AudioManager mAudioManager;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mArgs = getArguments();
+        mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager.setSpeakerphoneOn(true);
+
+        mAccountId = mArgs.getString(ACCOUNT_ID);
+        mCallID = mArgs.getInt(CALL_ID);
+        mSipUser = mArgs.getString(SIP_NUMBER);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.incoming_fragment, container, false);
+
+        mCloseCall = (ImageView) view.findViewById(R.id.close_call);
+        mAcceptCall = (ImageView) view.findViewById(R.id.accept_call);
+        mAudioType = (ImageView) view.findViewById(R.id.audio_type);
+
+        mNatureFlag = (ImageView) view.findViewById(R.id.flag_user);
+        mProficiencyFlag = (ImageView) view.findViewById(R.id.flag_translator);
+        mUserName = (TextView) view.findViewById(R.id.user_name);
+
+        mCloseCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHomeActivity = (HomeActivity) getActivity();
+                mHomeActivity.closeCall();
+            }
+        });
+
+        mAcceptCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHomeActivity = (HomeActivity) getActivity();
+                mHomeActivity.acceptCall(mAccountId, mCallID);
+                mAudioManager.setSpeakerphoneOn(true);
+                mAudioType.setVisibility(View.VISIBLE);
+                mAcceptCall.setVisibility(View.GONE);
+            }
+        });
+
+        mAudioType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAudioManager.setSpeakerphoneOn(!mAudioManager.isSpeakerphoneOn());
+                if (mAudioManager.isSpeakerphoneOn()) {
+                    mAudioType.setImageResource(R.drawable.audio_type);
+                } else {
+                    mAudioType.setImageResource(R.drawable.audio_type_off);
+                }
+            }
+        });
+
+        Map<String, String> params = new HashMap<>();
+        params.put(RequestManager.ACTION, RequestManager.ACTIONS.INFOCALL_TRANSLATOR.name());
+        params.put(RequestManager.ID_SIP, mSipUser);
+
+        NetworkManager.getInstance().doPostWithParams(RequestManager.URL, params, "info translator",
+                new NetworkRequestCallback<JSONObject>() {
+                    @Override
+                    public void onRequestResponse(JSONObject response) {
+                        HashMap<String, String> params = RequestManager.jsonToMap(response);
+                        String message = params.get(RequestManager.MESSAGE);
+
+                        if (message.equals(RequestManager.MESSAGES.INFO_FOUND.name())) {
+                            mNatureFlagId = Integer.valueOf(params.get(RequestManager.NATURE));
+                            mProficiencyFlagId = Integer.valueOf(params.get(RequestManager.PROFICIENCY));
+                            mUserNameText = params.get(RequestManager.NAME);
+
+                            mNatureFlag.setImageResource(Util.getFlagResource(mNatureFlagId));
+                            mNatureFlag.setVisibility(View.VISIBLE);
+                            mProficiencyFlag.setImageResource(Util.getFlagResource(mProficiencyFlagId));
+                            mProficiencyFlag.setVisibility(View.VISIBLE);
+                            mUserName.setText(mUserNameText);
+
+                        }
+
+                        Log.d(TAG, message);
+                    }
+
+                    @Override
+                    public void onRequestError(VolleyError error) {
+                        Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        return view;
+    }
+}

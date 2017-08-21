@@ -1,0 +1,90 @@
+package com.univoxer.android;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.univoxer.android.Utils.SharedPrefsUtil;
+import com.univoxer.android.home.activity.HomeActivity;
+import com.univoxer.android.login.activity.LoginActivity;
+import com.univoxer.android.user.User;
+import com.univoxer.android.network.NetworkManager;
+import com.univoxer.android.network.NetworkRequestCallback;
+import com.univoxer.android.network.RequestManager;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Created by Gustavo on 14/06/2016.
+ * MainActivity
+ */
+public class MainActivity extends Activity {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    private Activity mActivity;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mActivity = this;
+
+        setContentView(R.layout.splash_screen);
+        doLogin();
+        Log.d(TAG, "");
+    }
+
+    private void doLogin() {
+        Map<String, String> params = new HashMap<>();
+        String login = SharedPrefsUtil.getUserLogin(mActivity);
+        String password = SharedPrefsUtil.getUserPassword(mActivity);
+
+        if (login != null && password != null)  {
+            params.put(RequestManager.LOGIN, login);
+            params.put(RequestManager.PASSWORD, password);
+
+            NetworkManager.getInstance().doPostWithParams(RequestManager.URL, params, "login", new NetworkRequestCallback<JSONObject>() {
+                @Override
+                public void onRequestResponse(JSONObject response) {
+                    HashMap<String, String> params = RequestManager.jsonToMap(response);
+                    String message = params.get(RequestManager.MESSAGE);
+
+                    if (message.equals(RequestManager.MESSAGES.AUTHENTICATED.name())) {
+                        User.getInstance().saveUserData(params);
+                        Log.d(TAG, message);
+                        goToHome();
+                    } else {
+                        Toast.makeText(mActivity, getResources().getText(R.string.password_incorrect), Toast.LENGTH_LONG).show();
+                        goToLogin();
+                    }
+                }
+
+                @Override
+                public void onRequestError(Exception error) {
+                    Toast.makeText(mActivity, getResources().getText(R.string.password_incorrect), Toast.LENGTH_LONG).show();
+                    goToLogin();
+                }
+            });
+        } else {
+            goToLogin();
+        }
+    }
+
+    private void goToLogin() {
+        Intent intent = new Intent(mActivity, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    private void goToHome() {
+        Intent intent = new Intent(mActivity, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
+    }
+}

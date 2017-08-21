@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "831013445207",
+    "firebase_url": "https://univoxer-9738e.firebaseio.com",
+    "project_id": "univoxer-9738e",
+    "storage_bucket": "univoxer-9738e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831013445207:android:8e519291f7a9eb62",
+        "android_client_info": {
+          "package_name": "com.univoxer.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831013445207-d09ghsb835ah9jhvntkhfkjk5skv3vrc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBc72uan3nT1nFSgNMTWT3HDO1jhrEsy-g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

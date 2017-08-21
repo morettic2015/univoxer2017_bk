@@ -1,0 +1,147 @@
+package com.univoxer.android.login.adapter;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.univoxer.android.R;
+
+import java.util.ArrayList;
+
+/**
+ * Created by Gustavo on 18/06/2016.
+ * LanguageAdapter
+ */
+public class LanguageAdapter extends BaseAdapter {
+
+    public static final String NATURE = "NATURE";
+    public static final String PROFICIENCY = "PROFICIENCY";
+
+    private Context mContext;
+    private boolean mWithText;
+    private static ArrayList<FlagItem> mFlagList;
+
+    public LanguageAdapter(Context context, String type, boolean withText) {
+        mContext = context;
+        mWithText = withText;
+
+        if (type.equals(NATURE)) {
+            mFlagList = new ArrayList<>();
+
+            mFlagList.add(new FlagItem(FlagItem.ID_PORTUGUESE, FlagItem.TOKEN_PORTUGUESE, "Português", R.drawable.ic_flag_pt));
+            mFlagList.add(new FlagItem(FlagItem.ID_ENGLISH, FlagItem.TOKEN_ENGLISH, "English", R.drawable.ic_flag_en));
+            mFlagList.add(new FlagItem(FlagItem.ID_SPANISH, FlagItem.TOKEN_SPANISH, "Español", R.drawable.ic_flag_es));
+            mFlagList.add(new FlagItem(FlagItem.ID_GERMAN, FlagItem.TOKEN_GERMAN, "Deutsch", R.drawable.ic_flag_de));
+            mFlagList.add(new FlagItem(FlagItem.ID_FRENCH, FlagItem.TOKEN_FRENCH, "Français", R.drawable.ic_flag_fr));
+            mFlagList.add(new FlagItem(FlagItem.ID_CHINESE, FlagItem.TOKEN_CHINESE, "中国", R.drawable.ic_flag_cn));
+            mFlagList.add(new FlagItem(FlagItem.ID_ITALIAN, FlagItem.TOKEN_ITALIAN, "Italiano", R.drawable.ic_flag_it));
+            mFlagList.add(new FlagItem(FlagItem.ID_RUSSIAN, FlagItem.TOKEN_RUSSIAN, "русский", R.drawable.ic_flag_ru));
+        } else if (type.equals(PROFICIENCY)) {
+            mFlagList = new ArrayList<>();
+
+            mFlagList.add(new FlagItem(FlagItem.ID_PORTUGUESE, FlagItem.TOKEN_PORTUGUESE, mContext.getString(R.string.portuguese), R.drawable.ic_flag_pt));
+            mFlagList.add(new FlagItem(FlagItem.ID_ENGLISH, FlagItem.TOKEN_ENGLISH, mContext.getString(R.string.english), R.drawable.ic_flag_en));
+            mFlagList.add(new FlagItem(FlagItem.ID_SPANISH, FlagItem.TOKEN_SPANISH, mContext.getString(R.string.spanish), R.drawable.ic_flag_es));
+            mFlagList.add(new FlagItem(FlagItem.ID_GERMAN, FlagItem.TOKEN_GERMAN, mContext.getString(R.string.german), R.drawable.ic_flag_de));
+            mFlagList.add(new FlagItem(FlagItem.ID_FRENCH, FlagItem.TOKEN_FRENCH, mContext.getString(R.string.french), R.drawable.ic_flag_fr));
+            mFlagList.add(new FlagItem(FlagItem.ID_CHINESE, FlagItem.TOKEN_CHINESE, mContext.getString(R.string.chinese), R.drawable.ic_flag_cn));
+            mFlagList.add(new FlagItem(FlagItem.ID_ITALIAN, FlagItem.TOKEN_ITALIAN, mContext.getString(R.string.italian), R.drawable.ic_flag_it));
+            mFlagList.add(new FlagItem(FlagItem.ID_RUSSIAN, FlagItem.TOKEN_RUSSIAN, mContext.getString(R.string.russian), R.drawable.ic_flag_ru));
+        }
+    }
+
+    @Override
+    public int getCount() {
+        return mFlagList.size();
+    }
+
+    @Override
+    public FlagItem getItem(int position) {
+        return mFlagList.get(position);
+    }
+
+    public FlagItem getItemByToken(String token) {
+        for (FlagItem flagItem : mFlagList) {
+            if (flagItem.mToken.equals(token)) {
+                return flagItem;
+            }
+        }
+        return getItem(0);
+    }
+
+    public void removeItemByToken(String token) {
+        for (FlagItem flagItem : mFlagList) {
+            if (flagItem.mToken.equals(token)) {
+                mFlagList.remove(flagItem);
+            }
+        }
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ImageView flag;
+        TextView name;
+
+        if (convertView == null) {
+            if (mWithText) {
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.language_item, parent, false);
+
+            } else {
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.language_home_item, parent, false);
+            }
+        }
+
+        FlagItem item = mFlagList.get(position);
+
+        if (mWithText) {
+            name = (TextView) convertView.findViewById(R.id.text_flag);
+            name.setText(item.mTitle);
+        }
+
+        flag = (ImageView) convertView.findViewById(R.id.img_flag);
+        flag.setImageResource(item.mIcon);
+
+        return convertView;
+    }
+
+    public class FlagItem {
+        public static final int ID_PORTUGUESE = 1;
+        public static final int ID_ENGLISH = 2;
+        public static final int ID_SPANISH = 3;
+        public static final int ID_GERMAN = 4;
+        public static final int ID_FRENCH = 5;
+        public static final int ID_CHINESE = 6;
+        public static final int ID_ITALIAN = 7;
+        public static final int ID_RUSSIAN = 8;
+
+        public static final String TOKEN_PORTUGUESE = "PT";
+        public static final String TOKEN_ENGLISH = "EN";
+        public static final String TOKEN_SPANISH = "ES";
+        public static final String TOKEN_GERMAN = "DE";
+        public static final String TOKEN_FRENCH = "FR";
+        public static final String TOKEN_CHINESE = "CN";
+        public static final String TOKEN_ITALIAN = "IT";
+        public static final String TOKEN_RUSSIAN = "RU";
+
+        public String mTitle;
+        public String mToken;
+        public int mIcon;
+        public int mId;
+
+        public FlagItem(int id, String token, String title, int icon) {
+            mTitle = title;
+            mIcon = icon;
+            mId = id;
+            mToken = token;
+        }
+    }
+}
